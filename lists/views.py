@@ -13,7 +13,7 @@ def view_list(request, list_id):
 
     if request.method == 'POST':
         try:
-            item = Item.objects.create(
+            item = Item(
                 text=request.POST.get('item_text', ''),
                 list=list_
             )
