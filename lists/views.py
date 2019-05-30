@@ -15,7 +15,7 @@ def view_list(request, list_id):
     if request.method == 'POST':
         try:
             item = Item(
-                text=request.POST.get('item_text', ''),
+                text=request.POST.get('text', ''),
                 list=list_
             )
             item.full_clean()
@@ -33,7 +33,7 @@ def view_list(request, list_id):
 def new_list(request):
     list_ = List.objects.create()
     item = Item.objects.create(
-        text=request.POST.get('item_text', ''),
+        text=request.POST.get('text', ''),
         list=list_
     )
     try:
