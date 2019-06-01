@@ -47,4 +47,4 @@ def _update_static_files():
 
 
 def _update_database():
-    run('./env/bin/python manage.py migrage --noinnput')
+    run('./env/bin/python manage.py migrate --noinnput')
