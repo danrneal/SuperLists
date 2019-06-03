@@ -1,6 +1,7 @@
-import random
 from fabric.contrib.files import append, exists
 from fabric.api import cd, env, local, run
+import os
+import random
 
 REPO_URL = 'https://gitlab.com/dan.r.neal/superlists.git'
 
