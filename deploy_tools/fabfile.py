@@ -1,5 +1,5 @@
 from fabric.contrib.files import append, exists
-from fabric.api import cd, env, local, run
+from fabric.api import cd, env, local, run, sudo
 import os
 import random
 
@@ -47,6 +47,8 @@ def _create_or_update_dotenv():
 
 def _update_static_files():
     run('./env/bin/python manage.py collectstatic --noinput')
+    sudo('systemctl daemon-reload')
+    sudo(f'systemctl restart gunicorn-{env.host}')
 
 
 def _update_database():
