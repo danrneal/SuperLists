@@ -3,7 +3,7 @@ from fabric.api import cd, env, local, run
 import os
 import random
 
-REPO_URL = 'https://gitlab.com/dan.r.neal/superlists.git'
+REPO_URL = 'git@gitlab.com:dan.r.neal/superlists.git'
 
 
 def deploy():
