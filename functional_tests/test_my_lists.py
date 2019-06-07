@@ -1,5 +1,6 @@
 from .base import FunctionalTest
 from .list_page import ListPage
+from .my_lists_page import MyListsPage
 
 
 class MyListsTest(FunctionalTest):
@@ -15,17 +16,15 @@ class MyListsTest(FunctionalTest):
         first_list_url = self.browser.current_url
 
         # She notices a "My lists" link, for the first time.
-        list_page.get_my_lists_link().click()
+        my_list_page = MyListsPage(self).go_to_my_lists_page()
 
         # She sees that her list is in there, named according to its first
         # line item
-        self.wait_for(
-            lambda: self.browser.find_element_by_link_text('Reticulate splines')
-        )
-        self.browser.find_element_by_link_text('Reticulate splines').click()
-        self.wait_for(
-            lambda: self.assertEqual(self.browser.current_url, first_list_url)
-        )
+        self.wait_for(lambda: my_list_page.get_list('Reticulate splines'))
+        my_list_page.get_list('Reticulate splines').click()
+        self.wait_for(lambda: self.assertEqual(
+            self.browser.current_url, first_list_url
+        ))
 
         # She decides to start another list, just to see
         self.browser.get(self.live_server_url)
@@ -33,19 +32,15 @@ class MyListsTest(FunctionalTest):
         second_list_url = self.browser.current_url
 
         # Under "my lists", her new list appears
-        list_page.get_my_lists_link().click()
-        self.wait_for(
-            lambda: self.browser.find_element_by_link_text('Click cows')
-        )
-        self.browser.find_element_by_link_text('Click cows').click()
-        self.wait_for(
-            lambda: self.assertEqual(self.browser.current_url, second_list_url)
-        )
+        my_list_page.go_to_my_lists_page()
+        self.wait_for(lambda: my_list_page.get_list('Click cows'))
+        my_list_page.get_list('Click cows').click()
+        self.wait_for(lambda: self.assertEqual(
+            self.browser.current_url, second_list_url
+        ))
 
         # She logs out. The "My lists" option disappears
-        self.browser.find_element_by_link_text('Log out').click()
-        self.wait_for(
-            lambda: self.assertEqual(
-                self.browser.find_elements_by_link_text('My lists'), []
-            )
-        )
+        list_page.get_logout_link().click()
+        self.wait_for(lambda: self.assertNotIn(
+            'My lists', list_page.get_navbar().text
+        ))

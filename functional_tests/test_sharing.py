@@ -1,6 +1,7 @@
 from selenium import webdriver
 from .base import FunctionalTest
 from .list_page import ListPage
+from .my_lists_page import MyListsPage
 
 
 def quit_if_possible(browser):
@@ -39,3 +40,23 @@ class SharingTest(FunctionalTest):
         # She shares her list.
         # The page updates to say that it's shared with Oniciferous
         list_page.share_list_with('oniciferous@example.com')
+
+        # Oniciferous now goes to the lists page with his browser
+        self.browser = oni_browser
+        my_lists_page = MyListsPage(self).go_to_my_lists_page()
+
+        # He sees Edith's list in there!
+        my_lists_page.get_list('Get help').click()
+
+        # On the list page, Oniciferous can see that it says it's Edith's list
+        self.wait_for(lambda: self.assertEqual(
+            list_page.get_list_owner(), 'edith@example.com'
+        ))
+
+        # He adds an item to the list
+        list_page.add_list_item('Hi Edith!')
+
+        # When Edith refreshes the page, she sees Oniciferous's addition
+        self.browser = edith_browser
+        self.browser.refresh()
+        list_page.wait_for_row_in_list_table('Hi Edith!', 2)

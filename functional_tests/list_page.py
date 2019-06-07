@@ -64,8 +64,5 @@ class ListPage(object):
         navbar = self.get_navbar()
         self.test.assertNotIn(email, navbar.text)
 
-    def get_my_lists_link(self):
-        return self.test.browser.find_element_by_link_text('My lists')
-
     def get_header_text(self):
         return self.test.browser.find_element_by_tag_name('h1').text
