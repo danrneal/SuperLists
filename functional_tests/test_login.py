@@ -5,6 +5,7 @@ import re
 import time
 from selenium.webdriver.common.keys import Keys
 from .base import FunctionalTest
+from .list_page import ListPage
 
 SUBJECT = 'Your login link for Superlists'
 
@@ -55,8 +56,9 @@ class LoginTest(FunctionalTest):
             test_email = 'edith@example.com'
 
         self.browser.get(self.live_server_url)
-        self.browser.find_element_by_name('email').send_keys(test_email)
-        self.browser.find_element_by_name('email').send_keys(Keys.ENTER)
+        list_page = ListPage(self)
+        list_page.get_email_box().send_keys(test_email)
+        list_page.get_email_box().send_keys(Keys.ENTER)
 
         # A message appears telling her an email has been sent
         self.wait_for(lambda: self.assertIn(
@@ -79,10 +81,10 @@ class LoginTest(FunctionalTest):
         self.browser.get(url)
 
         # She is logged in!
-        self.wait_to_be_logged_in(email=test_email)
+        list_page.wait_to_be_logged_in(test_email)
 
         # Now she logs out
-        self.browser.find_element_by_link_text('Log out').click()
+        list_page.get_logout_link().click()
 
         # She is logged out
-        self.wait_to_be_logged_out(email=test_email)
+        list_page.wait_to_be_logged_out(test_email)
