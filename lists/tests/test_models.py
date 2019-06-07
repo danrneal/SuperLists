@@ -82,8 +82,15 @@ class ListModelTest(TestCase):
         new_list = List.objects.first()
         self.assertEqual(returned, new_list)
 
-    def test_list_neam_is_first_item_text(self):
+    def test_list_name_is_first_item_text(self):
         list_ = List.objects.create()
         Item.objects.create(list=list_, text='first item')
         Item.objects.create(list=list_, text='second item')
         self.assertEqual(list_.name, 'first item')
+
+    def test_has_shared_with_add_method(self):
+        user = User.objects.create()
+        list_ = List.objects.create()
+        list_.shared_with.add(user)
+        shared_with = list_.shared_with.all()
+        self.assertIn(user, shared_with)
