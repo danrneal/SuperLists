@@ -23,9 +23,9 @@ class LoginTest(FunctionalTest):
         start = time.time()
         try:
             while time.time() - start < 60:
-                inbox = poplib.POP3_SSL('pop.gmail.com')
+                inbox = poplib.POP3_SSL(os.environ['POP3_SSL'])
                 inbox.user(test_email)
-                inbox.pass_(os.environ['GMAIL_PASSWORD'])
+                inbox.pass_(os.environ['TEST_EMAIL_PASSWORD'])
 
                 # get 10 newest messages
                 count, _ = inbox.stat()
@@ -51,7 +51,7 @@ class LoginTest(FunctionalTest):
         # section in the navbar for the first time. It's telling her to ender
         # her email address, so she does
         if self.staging_server:
-            test_email = 'recent:mkruse02@gmail.com'
+            test_email = f'recent:{os.environ["TEST_EMAIL"]}'
         else:
             test_email = 'edith@example.com'
 
