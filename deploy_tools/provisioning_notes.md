@@ -1,7 +1,6 @@
-Provisioning a new site
-=======================
+# Provisioning a new site
 
-## Required packages:
+## Required packages
 
 * nginx
 * Python 3.6
@@ -23,22 +22,19 @@ eg, on Ubuntu:
 * see gunicorn-systemd.template.service
 * replace DOMAIN with, e.g., staging.my-domain.com
 
-## Folder structure:
+## Folder structure
 
 Assume we have a user account at /home/username
 
-/home/username
-```
-└── sites
-    ├── DOMAIN1
-    |   ├── .env
-    |   ├── db.sqlite3
-    |   ├── manage.py etc
-    |   ├── static
-    |   └──env
-    └── DOMAIN2
-        ├── .env
-        ├── db.sqlite3
-        ├── etc
-```
-
+    /home/username
+    └── sites
+        ├── DOMAIN1
+        |   ├── .env
+        |   ├── db.sqlite3
+        |   ├── manage.py etc
+        |   ├── static
+        |   └──env
+        └── DOMAIN2
+            ├── .env
+            ├── db.sqlite3
+            ├── etc
