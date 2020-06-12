@@ -80,7 +80,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         else:
             session_key = create_pre_authenticated_session(email)
 
-        ## to set a cookie we neet to first visit the domain, 404 pages load
+        ## to set a cookie we need to first visit the domain, 404 pages load
         ## the quickest!
         self.browser.get(self.live_server_url + '/404_no_such_url')
         self.browser.add_cookie(dict(
