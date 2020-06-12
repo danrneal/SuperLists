@@ -8,5 +8,6 @@ __pycache__
 /static
 .env
 functional_tests/screendumps
+node_modules
 .history
 .vscode
