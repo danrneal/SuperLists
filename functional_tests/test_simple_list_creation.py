@@ -4,7 +4,7 @@ from .base import FunctionalTest
 from .list_page import ListPage
 
 
-class NewVisistorTest(FunctionalTest):
+class NewVisitorTest(FunctionalTest):
 
     def test_can_start_a_list_for_one_user(self):
         # Edith has heard about a cool new online to-do app. She goes to
